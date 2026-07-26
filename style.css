@@ -49,3 +49,50 @@ button{
     font-weight:bold;
     cursor:pointer;
 }
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:220px;
+    height:100vh;
+    background:#111827;
+    padding:25px;
+    box-sizing:border-box;
+}
+
+.sidebar h2{
+    color:#00d9ff;
+    margin-bottom:30px;
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    margin-bottom:18px;
+}
+
+.content{
+    margin-left:240px;
+    padding:40px;
+}
+
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    width:280px;
+    color:white;
+}
+
+.add-btn{
+    background:#00d9ff;
+    color:black;
+    padding:15px 25px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
