@@ -1,5 +1,11 @@
-document.querySelector("button").onclick = function(){
+const tombol = document.getElementById("openModal");
 
-    window.location.href = "dashboard.html";
+if(tombol){
+
+    tombol.onclick=function(){
+
+        document.getElementById("videoModal").style.display="flex";
+
+    }
 
 }
