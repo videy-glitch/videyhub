@@ -7,31 +7,43 @@
 <title>VideyHub Dashboard</title>
 
 <link rel="stylesheet" href="dashboard.css">
-
 </head>
+
 <body>
 
-<div class="sidebar">
+<div class="container">
 
-    <h2>VIDEYHUB</h2>
+    <div class="header">
 
-    <button id="newLinkBtn">
-        + Link Baru
-    </button>
+        <div class="logo">
+            VIDEYHUB
+        </div>
 
-    <button id="settingBtn">
-        ⚙ Pengaturan
-    </button>
+        <button class="new-btn" id="newLinkBtn">
+            + LINK BARU
+        </button>
 
-    <button id="logoutBtn">
-        🚪 Logout
-    </button>
+    </div>
 
-</div>
+    <div class="stats">
 
-<div class="content">
+        <div class="stat-card">
 
-    <h1>Dashboard</h1>
+            <h3 id="totalLinks">0</h3>
+
+            <p>Total Link</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3 id="totalViews">0</h3>
+
+            <p>Total Views</p>
+
+        </div>
+
+    </div>
 
     <div id="linkContainer">
 
@@ -43,9 +55,26 @@
 
     </div>
 
+    <div class="bottom-menu">
+
+        <button id="settingBtn">
+
+            ⚙ Pengaturan
+
+        </button>
+
+        <button id="logoutBtn">
+
+            🚪 Logout
+
+        </button>
+
+    </div>
+
 </div>
 
-<!-- MODAL -->
+
+<!-- Modal -->
 
 <div class="modal" id="modal">
 
@@ -54,26 +83,26 @@
         <h2>Link Baru</h2>
 
         <input
-            id="videoUrl"
-            type="text"
-            placeholder="URL Video">
+        id="videoUrl"
+        type="text"
+        placeholder="Masukkan URL Video">
 
         <input
-            id="yesRedirect"
-            type="text"
-            placeholder="Redirect tombol YA">
+        id="yesRedirect"
+        type="text"
+        placeholder="Redirect tombol YA">
 
         <input
-            id="noRedirect"
-            type="text"
-            placeholder="Redirect tombol TIDAK">
+        id="noRedirect"
+        type="text"
+        placeholder="Redirect tombol TIDAK">
 
         <label>
 
             <input
-                id="showBanner"
-                type="checkbox"
-                checked>
+            id="showBanner"
+            type="checkbox"
+            checked>
 
             Banner Atas
 
@@ -84,9 +113,9 @@
         <label>
 
             <input
-                id="showTelegram"
-                type="checkbox"
-                checked>
+            id="showTelegram"
+            type="checkbox"
+            checked>
 
             Join Telegram
 
@@ -96,7 +125,7 @@
 
         <button id="saveBtn">
 
-            SIMPAN
+            SIMPAN LINK
 
         </button>
 
