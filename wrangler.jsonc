@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "videyhub",
+  "main": "worker.js",
+  "compatibility_date": "2026-07-28",
+
+  "kv_namespaces": [
+    {
+      "binding": "VIDEOS",
+      "id": "3e3bd24cb990402abf0b4dd099f07659"
+    }
+  ]
+}
