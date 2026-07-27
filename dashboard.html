@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,167 +7,69 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
-
-<script src="dashboard.js"></script><script src="app.js"></script>
 <body>
 
 <div class="sidebar">
-
     <h2>VIDEYHUB</h2>
 
     <a href="#">🏠 Dashboard</a>
-
-    <a href="#">🎬 Video</a>
-
+    <a href="#">🎬 Link Video</a>
     <a href="#">⚙️ Pengaturan</a>
-
     <a href="#">📊 Statistik</a>
-
     <a href="#">🚪 Logout</a>
-
 </div>
 
 <div class="content">
 
     <h1>Dashboard</h1>
 
-    <div class="card">
+    <button class="add-btn" id="openModal">
+        + Link Baru
+    </button>
 
-        <h2>Total Video</h2>
+    <h2>Daftar Link</h2>
 
-        <h3>0</h3>
-
+    <div id="linkList">
+        <p>Belum ada link.</p>
     </div>
 
-    <div class="card">
+</div>
 
-        <h2>Total Views</h2>
-
-        <h3>0</h3>
-
-    </div>
-
-   <button class="add-btn" id="openModal">
-
-    + Link Video
-
-</button>
-    <div class="modal" id="videoModal">
-
-    <div class="modal-box">
-
-        <h2>Link Video</h2>
-
-        <input type="text" placeholder="Judul Video">
-
-        <input type="text" placeholder="URL Video">
-
-        <input type="text" placeholder="Redirect Link">
-
-        <label>
-            <input type="checkbox" checked>
-            Verifikasi Umur
-        </label>
-
-        <br><br>
-
-        <label>
-            <input type="checkbox" checked>
-            Join Telegram
-        </label>
-
-        <br><br>
-
-        <button>Simpan</button>
-
-    </div>
+<!-- MODAL -->
 
 <div class="modal" id="videoModal">
 
     <div class="modal-box">
 
-        <h2>Link Baru</h2>
+        <h2>Tambah Link Baru</h2>
 
-        <input id="videoUrl" type="text" placeholder="https://videy.co/...">
+        <input id="videoUrl" type="text" placeholder="URL Video">
 
         <input id="redirectUrl" type="text" placeholder="Redirect Link">
 
         <label>
-
             <input id="ageVerify" type="checkbox" checked>
-
             Verifikasi Umur
-
         </label>
 
         <br><br>
 
         <label>
-
             <input id="telegram" type="checkbox" checked>
-
             Join Telegram
-
         </label>
 
         <br><br>
 
         <button id="saveLink">
-
             Simpan
-
-        </button>
-
-    </div>
-
-</div><div class="modal" id="videoModal">
-
-    <div class="modal-box">
-
-        <h2>Link Baru</h2>
-
-        <h2>Daftar Link</h2>
-
-<h2>Daftar Link</h2>
-
-<div id="linkList"></div>
-
-        <input id="videoUrl" type="text" placeholder="https://videy.co/...">
-
-        <input id="redirectUrl" type="text" placeholder="Redirect Link">
-
-        <label>
-
-            <input id="ageVerify" type="checkbox" checked>
-
-            Verifikasi Umur
-
-        </label>
-
-        <br><br>
-
-        <label>
-
-            <input id="telegram" type="checkbox" checked>
-
-            Join Telegram
-
-        </label>
-
-        <br><br>
-
-        <button id="saveLink">
-
-            Simpan
-
         </button>
 
     </div>
 
 </div>
 
-    
-</div>
+<script src="dashboard.js"></script>
 
 </body>
 </html>
