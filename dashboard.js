@@ -1,55 +1,61 @@
-
-// Data Link
 let links = JSON.parse(localStorage.getItem("videyLinks")) || [];
 
-// Tombol buka modal
-document.getElementById("openModal").onclick = function () {
-    document.getElementById("videoModal").style.display = "flex";
-};
+const modal = document.getElementById("videoModal");
+const openBtn = document.getElementById("openModal");
+const saveBtn = document.getElementById("saveLink");
+const list = document.getElementById("linkList");
 
-// Tombol simpan
-document.getElementById("saveLink").onclick = function () {
+openBtn.onclick = function(){
 
-    const video = document.getElementById("videoUrl").value;
-    const redirect = document.getElementById("redirectUrl").value;
+    modal.style.display="flex";
 
-    if(video==""){
-        alert("Masukkan URL Video");
+}
+
+saveBtn.onclick = function(){
+
+    const video=document.getElementById("videoUrl").value.trim();
+
+    const redirect=document.getElementById("redirectUrl").value.trim();
+
+    if(video===""){
+
+        alert("Masukkan URL Video!");
+
         return;
+
     }
 
     links.push({
 
-        id: Date.now(),
+        id:Date.now(),
 
-        video: video,
+        video:video,
 
-        redirect: redirect,
+        redirect:redirect,
 
-        age: document.getElementById("ageVerify").checked,
+        age:document.getElementById("ageVerify").checked,
 
-        telegram: document.getElementById("telegram").checked
+        telegram:document.getElementById("telegram").checked
 
     });
 
     localStorage.setItem("videyLinks",JSON.stringify(links));
 
-    document.getElementById("videoModal").style.display="none";
-
     document.getElementById("videoUrl").value="";
+
     document.getElementById("redirectUrl").value="";
 
-    tampilkanLink();
+    modal.style.display="none";
+
+    tampilkan();
 
 }
 
-function tampilkanLink(){
-
-    const list=document.getElementById("linkList");
+function tampilkan(){
 
     list.innerHTML="";
 
-    if(links.length==0){
+    if(links.length===0){
 
         list.innerHTML="<p>Belum ada link.</p>";
 
@@ -59,26 +65,24 @@ function tampilkanLink(){
 
     links.forEach(function(item){
 
-        list.innerHTML+=`
+        list.innerHTML += `
+            <div class="card">
 
-        <div class="card">
+                <b>Video</b><br>
 
-            <b>Video</b><br>
+                ${item.video}
 
-            ${item.video}
+                <br><br>
 
-            <br><br>
+                <b>Redirect</b><br>
 
-            <b>Redirect</b><br>
+                ${item.redirect || "-"}
 
-            ${item.redirect || "-"}
-
-        </div>
-
+            </div>
         `;
 
     });
 
 }
 
-tampilkanLink();
+tampilkan();
