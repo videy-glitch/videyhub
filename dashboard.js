@@ -134,9 +134,7 @@ function render(){
     let total = 0;
 
     links.forEach(item=>{
-
         total += item.views;
-
     });
 
     totalViews.innerText = total;
@@ -171,11 +169,23 @@ function render(){
 
                 </div>
 
-                <button
-                class="copy-btn"
-                onclick="copyLink('${item.id}')">
+            </div>
 
-                📋 Copy
+            <div class="action">
+
+                <button
+                    class="copy-btn"
+                    onclick="copyLink('${item.id}')">
+
+                    📋 Copy
+
+                </button>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteLink('${item.id}')">
+
+                    🗑 Hapus
 
                 </button>
 
@@ -206,3 +216,15 @@ function copyLink(id){
 // =========================
 
 render();
+
+function deleteLink(id){
+
+    if(!confirm("Yakin ingin menghapus link ini?")) return;
+
+    links = links.filter(item => item.id !== id);
+
+    localStorage.setItem("videyhub_links", JSON.stringify(links));
+
+    render();
+
+}
