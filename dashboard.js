@@ -1,88 +1,178 @@
-let links = JSON.parse(localStorage.getItem("videyLinks")) || [];
+// =========================
+// VideyHub Dashboard v1
+// =========================
 
-const modal = document.getElementById("videoModal");
-const openBtn = document.getElementById("openModal");
-const saveBtn = document.getElementById("saveLink");
-const list = document.getElementById("linkList");
+const modal = document.getElementById("modal");
 
-openBtn.onclick = function(){
+const newLinkBtn = document.getElementById("newLinkBtn");
 
-    modal.style.display="flex";
+const saveBtn = document.getElementById("saveBtn");
+
+const container = document.getElementById("linkContainer");
+
+
+// buka modal
+
+newLinkBtn.onclick = () => {
+
+    modal.style.display = "flex";
+
+};
+
+
+// klik luar modal
+
+window.onclick = (e)=>{
+
+    if(e.target==modal){
+
+        modal.style.display="none";
+
+    }
+
+};
+
+
+// generate id random
+
+function generateID(){
+
+    const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    let id="";
+
+    for(let i=0;i<6;i++){
+
+        id+=chars.charAt(Math.floor(Math.random()*chars.length));
+
+    }
+
+    return id;
 
 }
 
-saveBtn.onclick = function(){
 
-    const video=document.getElementById("videoUrl").value.trim();
+// load data
 
-    const redirect=document.getElementById("redirectUrl").value.trim();
+let links = JSON.parse(localStorage.getItem("videyhub_links")) || [];
 
-    if(video===""){
+render();
 
-        alert("Masukkan URL Video!");
+
+// simpan
+
+saveBtn.onclick = ()=>{
+
+    const videoUrl=document.getElementById("videoUrl").value.trim();
+
+    const yesRedirect=document.getElementById("yesRedirect").value.trim();
+
+    const noRedirect=document.getElementById("noRedirect").value.trim();
+
+    if(videoUrl===""){
+
+        alert("URL Video wajib diisi");
 
         return;
 
     }
 
-    links.push({
+    const data={
 
-        id:Date.now(),
+        id:generateID(),
 
-        video:video,
+        videoUrl,
 
-        redirect:redirect,
+        yesRedirect,
 
-        age:document.getElementById("ageVerify").checked,
+        noRedirect,
 
-        telegram:document.getElementById("telegram").checked
+        showBanner:document.getElementById("showBanner").checked,
 
-    });
+        showTelegram:document.getElementById("showTelegram").checked,
 
-    localStorage.setItem("videyLinks",JSON.stringify(links));
+        views:0
 
-    document.getElementById("videoUrl").value="";
+    };
 
-    document.getElementById("redirectUrl").value="";
+    links.unshift(data);
+
+    localStorage.setItem("videyhub_links",JSON.stringify(links));
 
     modal.style.display="none";
 
-    tampilkan();
+    document.getElementById("videoUrl").value="";
 
-}
+    document.getElementById("yesRedirect").value="";
 
-function tampilkan(){
+    document.getElementById("noRedirect").value="";
 
-    list.innerHTML="";
+    render();
 
-    if(links.length===0){
+};
 
-        list.innerHTML="<p>Belum ada link.</p>";
+
+// tampilkan card
+
+function render(){
+
+    if(links.length==0){
+
+        container.innerHTML=`
+
+        <div class="empty">
+
+            Belum ada Link.
+
+        </div>
+
+        `;
 
         return;
 
     }
 
-    links.forEach(function(item){
+    container.innerHTML="";
 
-        list.innerHTML += `
-            <div class="card">
+    links.forEach(item=>{
 
-                <b>Video</b><br>
+        container.innerHTML+=`
 
-                ${item.video}
+        <div class="card">
 
-                <br><br>
+            <h3>👁 ${item.views}</h3>
 
-                <b>Redirect</b><br>
+            <p>${item.id}.mp4</p>
 
-                ${item.redirect || "-"}
+            <div class="action">
+
+                <button class="copy-btn"
+
+                onclick="copyLink('${item.id}')">
+
+                📋 Copy
+
+                </button>
 
             </div>
+
+        </div>
+
         `;
 
     });
 
 }
 
-tampilkan();
+
+// copy
+
+function copyLink(id){
+
+    const url=location.origin+"/"+id+".mp4";
+
+    navigator.clipboard.writeText(url);
+
+    alert("Link berhasil disalin");
+
+}
