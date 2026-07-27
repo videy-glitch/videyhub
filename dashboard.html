@@ -1,68 +1,103 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VideyHub Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+<title>VideyHub Dashboard</title>
+
+<link rel="stylesheet" href="dashboard.css">
+
 </head>
 <body>
 
 <div class="sidebar">
+
     <h2>VIDEYHUB</h2>
 
-    <a href="#">🏠 Dashboard</a>
-    <a href="#">🎬 Link Video</a>
-    <a href="#">⚙️ Pengaturan</a>
-    <a href="#">📊 Statistik</a>
-    <a href="#">🚪 Logout</a>
+    <button id="newLinkBtn">
+        + Link Baru
+    </button>
+
+    <button id="settingBtn">
+        ⚙ Pengaturan
+    </button>
+
+    <button id="logoutBtn">
+        🚪 Logout
+    </button>
+
 </div>
 
 <div class="content">
 
     <h1>Dashboard</h1>
 
-    <button class="add-btn" id="openModal">
-        + Link Baru
-    </button>
+    <div id="linkContainer">
 
-    <h2>Daftar Link</h2>
+        <div class="empty">
 
-    <div id="linkList">
-        <p>Belum ada link.</p>
+            Belum ada link.
+
+        </div>
+
     </div>
 
 </div>
 
 <!-- MODAL -->
 
-<div class="modal" id="videoModal">
+<div class="modal" id="modal">
 
     <div class="modal-box">
 
-        <h2>Tambah Link Baru</h2>
+        <h2>Link Baru</h2>
 
-        <input id="videoUrl" type="text" placeholder="URL Video">
+        <input
+            id="videoUrl"
+            type="text"
+            placeholder="URL Video">
 
-        <input id="redirectUrl" type="text" placeholder="Redirect Link">
+        <input
+            id="yesRedirect"
+            type="text"
+            placeholder="Redirect tombol YA">
+
+        <input
+            id="noRedirect"
+            type="text"
+            placeholder="Redirect tombol TIDAK">
 
         <label>
-            <input id="ageVerify" type="checkbox" checked>
-            Verifikasi Umur
+
+            <input
+                id="showBanner"
+                type="checkbox"
+                checked>
+
+            Banner Atas
+
         </label>
 
         <br><br>
 
         <label>
-            <input id="telegram" type="checkbox" checked>
+
+            <input
+                id="showTelegram"
+                type="checkbox"
+                checked>
+
             Join Telegram
+
         </label>
 
         <br><br>
 
-        <button id="saveLink">
-            Simpan
+        <button id="saveBtn">
+
+            SIMPAN
+
         </button>
 
     </div>
