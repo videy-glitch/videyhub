@@ -18,7 +18,7 @@ const totalViews = document.getElementById("totalViews");
 
 // Load data
 let links = JSON.parse(localStorage.getItem("videyhub_links")) || [];
-
+const PLAYER_URL = "https://videyhub-api.videyhub.workers.dev";
 // =========================
 // Modal
 // =========================
@@ -89,26 +89,25 @@ saveBtn.onclick = ()=>{
 
     }
 
-    const data={
+    const data = {
 
-        id:generateID(),
+    id: generateID(),
 
-        videoUrl,
+    videoUrl,
 
-        yesRedirect,
+    yesRedirect,
 
-        noRedirect,
+    noRedirect,
 
-        showBanner:document.getElementById("showBanner").checked,
+    showBanner: document.getElementById("showBanner").checked,
 
-        showTelegram:document.getElementById("showTelegram").checked,
+    showTelegram: document.getElementById("showTelegram").checked,
 
-        views:0,
+    views: 0,
 
-        createdAt:Date.now()
+    createdAt: Date.now()
 
-    };
-
+};
     links.unshift(data);
 
     localStorage.setItem("videyhub_links",JSON.stringify(links));
@@ -205,11 +204,11 @@ function render(){
 
 function copyLink(id){
 
-    const url = location.origin + "/" + id + ".mp4";
+    const url = PLAYER_URL + "/" + id + ".mp4";
 
     navigator.clipboard.writeText(url);
 
-    alert("✅ Link berhasil disalin");
+    alert("✅ Link berhasil disalin\n\n" + url);
 
 }
 
