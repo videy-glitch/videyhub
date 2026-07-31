@@ -1,128 +1,132 @@
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
 
     const url = new URL(request.url);
+    const path = url.pathname;
 
-    // Buka dashboard
-    if (url.pathname === "/" || url.pathname === "/dashboard") {
-      return Response.redirect(url.origin + "/dashboard.html", 302);
+    // =========================
+    // CORS
+    // =========================
+
+    const cors = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    };
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: cors
+      });
     }
 
-    // Kalau buka .mp4
-    if (url.pathname.endsWith(".mp4")) {
+    // =========================
+    // HOME
+    // =========================
 
-      const id = url.pathname.replace("/", "").replace(".mp4", "");
+    if (path === "/") {
+      return new Response("VideyHub API Berjalan 🚀", {
+        headers: cors
+      });
+    }
 
-      return new Response(`
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+    // =========================
+    // SAVE DATA
+    // POST /api/save
+    // =========================
 
-<title>${id}</title>
+    if (path === "/api/save" && request.method === "POST") {
 
-<style>
+      try {
 
-body{
-margin:0;
-background:#111;
-font-family:Arial;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
+        const body = await request.json();
 
-.box{
+        if (!body.id || !body.videoUrl) {
 
-width:90%;
-max-width:420px;
+          return Response.json({
+            success: false,
+            message: "Data tidak lengkap"
+          }, {
+            headers: cors
+          });
 
-background:#1f1f1f;
+        }
 
-padding:25px;
+        await env.DB.put(
+          body.id,
+          JSON.stringify(body)
+        );
 
-border-radius:12px;
+        return Response.json({
+          success: true,
+          id: body.id
+        }, {
+          headers: cors
+        });
 
-text-align:center;
+      } catch (err) {
 
-}
+        return Response.json({
+          success: false,
+          error: err.message
+        }, {
+          headers: cors
+        });
 
-button{
+      }
 
-width:100%;
+    }
 
-padding:14px;
+    // =========================
+    // GET DATA
+    // GET /api/video?id=xxxx
+    // =========================
 
-margin-top:10px;
+    if (path === "/api/video") {
 
-font-size:17px;
+      const id = url.searchParams.get("id");
 
-border:none;
+      if (!id) {
 
-border-radius:8px;
+        return Response.json({
+          success:false,
+          message:"ID kosong"
+        },{
+          headers:cors
+        });
 
-cursor:pointer;
+      }
 
-}
+      const data = await env.DB.get(id);
 
-.yes{
+      if (!data) {
 
-background:#00b894;
+        return Response.json({
+          success:false,
+          message:"Video tidak ditemukan"
+        },{
+          headers:cors
+        });
 
-color:white;
+      }
 
-}
-
-.no{
-
-background:#e74c3c;
-
-color:white;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="box">
-
-<h2>🔞 Verifikasi Umur</h2>
-
-<p>Apakah umur Anda sudah 18 tahun ke atas?</p>
-
-<button class="yes" onclick="alert('Nanti redirect YES')">
-
-YA
-
-</button>
-
-<button class="no" onclick="alert('Nanti redirect NO')">
-
-TIDAK
-
-</button>
-
-</div>
-
-</body>
-
-</html>
-
-`, {
-        headers: {
-          "content-type": "text/html;charset=UTF-8"
+      return new Response(data,{
+        headers:{
+          ...cors,
+          "Content-Type":"application/json"
         }
       });
 
     }
 
-    return fetch(request);
+    // =========================
+    // NEXT PART
+    // =========================
+
+    return new Response("404",{
+      status:404,
+      headers:cors
+    });
 
   }
 }
